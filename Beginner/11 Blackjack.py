@@ -8,54 +8,76 @@ logo = """
       |  \/ K|                            _/ |                
       `------'                           |__/           
 """
-import os
 import random
-############### Our Blackjack House Rules #####################
+import os
 
-## The deck is unlimited in size. 
-## There are no jokers. 
-## The Jack/Queen/King all count as 10.
-## The the Ace can count as 11 or 1.
-## Use the following list as the deck of cards:
-## cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-## The cards in the list have equal probability of being drawn.
-## Cards are not removed from the deck as they are drawn.
-## The computer is the dealer.
 
-##################### Hints #####################
+def deal_card():
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return random.choice(cards)
 
-#Hint 1: Go to this website and try out the Blackjack game: 
-#   https://games.washingtonpost.com/games/blackjack/
-#Then try out the completed Blackjack project here: 
-#   http://blackjack-final.appbrewery.repl.run
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+def calculate_score(card_list):
+    if sum(card_list) == 21 and len(card_list) == 2:
+        return 0
+    if 11 in card_list and sum(card_list) > 21:
+        card_list.remove(11)
+        card_list.append(1)
+    return sum(card_list)
 
-computer_cards = []
-computer_score = 0
-while computer_score < 17:
-    computer_cards.append(cards[random.randint(0, 12)])
-    computer_score = sum(computer_cards)
 
-player_cards = []
-player_score = 0
-player_cards.append(cards[random.randint(0, 12)])
-player_cards.append(cards[random.randint(0, 12)])
+def compare(user_score, computer_score):
+    if user_score == computer_score:
+        print("It's a draw")
+    elif computer_score == 0:
+        print("Computer has Blackjack. You lose.")
+    elif user_score == 0:
+        print("You have a Blackjack. You win!")
+    elif user_score > 21:
+        print(f"Your score is {user_score}. You lose.")
+    elif computer_score > 21:
+        print(f"Computer score is {computer_score}. You win!")
+    elif user_score > computer_score:
+        print("You win!")
+    else:
+        print("You lose.")
 
-play_game = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-if play_game == "y":
-    # os.system("cls")
+
+def blackjack():
     print(logo)
-    
-    player_score = sum(player_cards) 
-    print(f"Your cards: {player_cards}, current score: {player_score}")
-    print(computer_cards)
-    print(f"Computer's first card: {computer_cards[0]}")
-    another_card = input("Type 'y' to get another card, type 'n' to pass: ")
-    if another_card == "y":
-        player_cards.append(cards[random.randint(0, 12)])
+    user_cards = []
+    computer_cards = []
+    for _ in range(2):
+        user_cards.append(deal_card())
+        computer_cards.append(deal_card())
 
-else:
-    os.system("cls")
-    exit
+    is_game_over = False
+    user_score = calculate_score(user_cards)
+    computer_score = calculate_score(computer_cards)
+    print(f"    Your cards: {user_cards}, current score: {user_score}")
+    print(f"    Computer's first card: {computer_cards[0]}")
+    while not is_game_over:
+        if computer_score == 0 or user_score == 0 or user_score > 21:
+            is_game_over = True
+        else:
+            another_card = input("Do you want to draw another card? 'y' or 'n': ")
+            if another_card == "y":
+                user_cards.append(deal_card())
+                user_score = calculate_score(user_cards)
+                print(f"    Your cards: {user_cards}, current score: {user_score}")
+            else:
+                is_game_over = True
 
+    while computer_score < 17:
+        computer_cards.append(deal_card())
+        computer_score = calculate_score(computer_cards)
+
+    compare(user_score, computer_score)
+    print(f"Computer's final hand: {computer_cards} and score: {computer_score}")
+    new_game = input("Do you want to play again? 'y' or 'n': ")
+    if new_game == "y":
+        os.system("cls")
+        blackjack()
+
+
+blackjack()
