@@ -23,8 +23,3 @@ MENU = {
         "cost": 3.0,
     },
 }
-try:
-    print(MENU["latte"]["ingredients"]["milk"])
-    print(MENU["espresso"]["ingredients"]["milk"])
-except KeyError:
-    print(70)
