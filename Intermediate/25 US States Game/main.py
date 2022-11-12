@@ -1,8 +1,3 @@
-# with open("Intermediate/25 US States Game/weather_data.csv") as weather_data:
-#     data = weather_data.readlines()
-
-# print(data)
-
 import pandas as pd
 
 df = pd.read_csv(
@@ -13,8 +8,17 @@ df = pd.read_csv(
 # print(df["temp"].mean())
 
 fur_colors = df["Primary Fur Color"].unique().tolist()
+fur_colors.pop(0)
+count = []
+
+for color in fur_colors:
+    squirrels = (df["Primary Fur Color"] == color).sum()
+    count.append(squirrels)
 
 
-grey_squirrels = df.loc[df["Primary Fur Color"] == "Gray", ["Primary Fur Color"]]
-grey_squirrels = grey_squirrels.count()
-print(fur_colors)
+df_count = pd.DataFrame(columns=["Fur Color", "Count"])
+df_count["Fur Color"] = fur_colors
+df_count["Count"] = count
+print(df_count)
+
+df_count.to_csv("Intermediate/25 US States Game/squirrel_count.csv")
