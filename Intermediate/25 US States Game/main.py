@@ -1,24 +1,27 @@
+import turtle
 import pandas as pd
 
 df = pd.read_csv(
-    "Intermediate/25 US States Game/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv"
+    "C:/Users/suk2d/pyproj/Udemy/100-Days-Projects/Intermediate/25 US States Game/50_states.csv"
 )
 
-# temps = df["temp"].to_list()
-# print(df["temp"].mean())
+screen = turtle.Screen()
+screen.title("U.S. States Game")
+image = "100-Days-Projects/Intermediate/25 US States Game/blank_states_img.gif"
+screen.bgpic(image)
 
-fur_colors = df["Primary Fur Color"].unique().tolist()
-fur_colors.pop(0)
-count = []
+score = 0
+answered_states = []
+while score < 50:
+    answer_state = screen.textinput(
+        title=f"{score}/50 States Correct", prompt="What's another state's name?"
+    )
+    answer_state = answer_state.title()
+    if answer_state in df["state"].values and answer_state not in answered_states:
+        x_pos = df.loc[df["state"] == answer_state, "x"]
+        y_pos = df.loc[df["state"] == answer_state, "y"]
+        score += 1
+        answered_states.append(answer_state)
 
-for color in fur_colors:
-    squirrels = (df["Primary Fur Color"] == color).sum()
-    count.append(squirrels)
-
-
-df_count = pd.DataFrame(columns=["Fur Color", "Count"])
-df_count["Fur Color"] = fur_colors
-df_count["Count"] = count
-print(df_count)
-
-df_count.to_csv("Intermediate/25 US States Game/squirrel_count.csv")
+turtle.mainloop()
+# screen.exitonclick()
