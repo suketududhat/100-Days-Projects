@@ -1,6 +1,21 @@
 from tkinter import *
+import pandas as pd
+import random as r
 
 BACKGROUND_COLOR = "#B1DDC6"
+# ---------------------------- CSV SETUP ------------------------------- #
+df = pd.read_csv("Intermediate/31 Flashcard App/data/french_words.csv")
+word_list = df.to_dict(orient="records")
+
+# ---------------------------- CSV SETUP ------------------------------- #
+def change_word():
+    word_dict = r.choice(word_list)
+    french_word = word_dict["French"]
+    canvas.create_text(
+        400, 263, text=french_word, fill="black", font=("Ariel", 60, "bold")
+    )
+    print(french_word)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -25,7 +40,7 @@ wrong_img = PhotoImage(file="Intermediate/31 Flashcard App/images/wrong.png")
 wrong_button = Button(image=wrong_img, highlightthickness=0)
 wrong_button.grid(column=0, row=1)
 right_img = PhotoImage(file="Intermediate/31 Flashcard App/images/right.png")
-right_button = Button(image=right_img, highlightthickness=0)
+right_button = Button(image=right_img, highlightthickness=0, command=change_word)
 right_button.grid(column=1, row=1)
 
 window.mainloop()
