@@ -30,8 +30,6 @@ MY_LONG = 0  # Your longitude
 def telegram_bot_sendtext(bot_message):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     bot_chatID = os.getenv("TELEGRAM_CHAT_ID")
-    print(bot_token)
-    print(bot_chatID)
     send_text = (
         "https://api.telegram.org/bot"
         + bot_token

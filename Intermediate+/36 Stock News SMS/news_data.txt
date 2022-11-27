@@ -1,0 +1,19 @@
+{
+    "status": "ok",
+    "totalResults": 1,
+    "articles": [
+        {
+            "source": {
+                "id": "next-big-future",
+                "name": "Next Big Future"
+            },
+            "author": "Brian Wang",
+            "title": "Real Robotaxi Competition Won't Be Coming After Tesla - BestinTesla $TSLA | NextBigFuture.com",
+            "description": "I was interviewed by Lars at BestinTesla. I talked about why robotaxi at scale competition won't be coming once Tesla solves robotaxi at scale.",
+            "url": "https://www.nextbigfuture.com/2022/11/real-robotaxi-competition-wont-be-coming-after-tesla-bestintesla-tsla.html",
+            "urlToImage": "https://nextbigfuture.s3.amazonaws.com/uploads/2022/11/Screen-Shot-2022-11-14-at-10.41.44-PM.jpg",
+            "publishedAt": "2022-11-18T19:54:55Z",
+            "content": "I was interviewed by Lars at BestinTesla. I talked about why robotaxi at scale competition wont be coming once Tesla solves robotaxi at scale.\r\nTesla has over 160,000 people currently using FSD and d\u2026 [+1940 chars]"
+        }
+    ]
+}
